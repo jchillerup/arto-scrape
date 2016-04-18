@@ -1,0 +1,5 @@
+gevent==1.1.1
+greenlet==0.4.9
+grequests==0.3.0
+progressbar2==3.6.2
+requests==2.9.1
