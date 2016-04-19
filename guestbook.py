@@ -1,18 +1,16 @@
 import sys, os, re, requests, urllib
 from lxml.html import fromstring
-from user import make_user_folder
 
 GUESTBOOK_URL = "http://www.arto.com/section/user/profile/guestbook/?id=%d&GuestbookRepeater_ActivePage=%d"
 
-def scrape_guestbook(profile_id, root):
+def scrape_guestbook(profile_id, root, session):
     page_counter = 1
     should_continue = True
-
+    
     print(" - guestbook")
     
     while(should_continue):
-        
-        req = requests.get(GUESTBOOK_URL % (profile_id, page_counter))
+        req = session.get(GUESTBOOK_URL % (profile_id, page_counter))
         dom = fromstring(req.content)
         folder = root+"guestbook/"
         os.makedirs(folder, exist_ok=True)

@@ -1,7 +1,6 @@
 import re, sys, os
 import requests, urllib
 from lxml.html import fromstring
-from user import make_user_folder
 
 PROFILE_URL = "http://www.arto.com/section/user/profile/?id=%d"
 AVATAR_URL = "http://artoimages.cloud2.artodata.com/data/user/profile/medium/%s/%d.jpg"
@@ -11,15 +10,12 @@ def get_avatar(profile_id):
     
     url = AVATAR_URL % (last_four, profile_id)
 
-def scrape_profile(profile_id):
-    req = requests.get(PROFILE_URL % profile_id)
+def scrape_profile(profile_id, folder, session):
+    req = session.get(PROFILE_URL % profile_id)
     dom = fromstring(req.content)
 
     username = dom.findtext(".//title").replace("Arto - ", "").strip()
-    folder = make_user_folder(profile_id, username)
-
-    # print("- Dumping %s to %s" % (username, folder))
-
+    
     ## PROFILE
     print(" - profile")
     fp = open(folder + "profile.html", 'wb')
@@ -34,5 +30,7 @@ def scrape_profile(profile_id):
     urllib.request.urlretrieve(avatar_url, folder + "avatar.jpg")
     print (" - avatar")
 
+    
 if __name__=='__main__':
-    scrape_profile(5777177)
+    s = requests.Session()
+    scrape_profile(5777177, "test/", s)
