@@ -1,3 +1,5 @@
 venv/
+v/
 *~
 out/
+test/

@@ -1,7 +1,7 @@
 import re, sys, os
 import requests, urllib
 from lxml.html import fromstring
-from util import make_user_folder
+from user import make_user_folder
 
 PROFILE_URL = "http://www.arto.com/section/user/profile/?id=%d"
 AVATAR_URL = "http://artoimages.cloud2.artodata.com/data/user/profile/medium/%s/%d.jpg"
@@ -18,7 +18,7 @@ def scrape_profile(profile_id):
     username = dom.findtext(".//title").replace("Arto - ", "").strip()
     folder = make_user_folder(profile_id, username)
 
-    print(":: Dumping %s to %s" % (username, folder))
+    # print("- Dumping %s to %s" % (username, folder))
 
     ## PROFILE
     print(" - profile")
