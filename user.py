@@ -5,6 +5,8 @@ import requests
 from profile import scrape_profile
 from guestbook import scrape_guestbook
 from images import scrape_images
+from videos import scrape_videos
+from friends import scrape_friends
 
 def make_user_folder(profile_id):
     # we arrange the users in folders of 10000
@@ -28,6 +30,8 @@ def get_everything(user_id):
     scrape_profile(user_id, folder, s)
     scrape_guestbook(user_id, folder, s)
     scrape_images(user_id, folder, s)
+    scrape_videos(user_id, folder, s)
+    scrape_friends(user_id, folder, s)
 
 if __name__=='__main__':
     # mange billeder 2029308
