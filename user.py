@@ -22,11 +22,10 @@ def make_user_folder(profile_id):
     return folder
 
 
-def get_everything(user_id):
+def get_everything(user_id, s):
     print(":: %d" % user_id)
     folder = make_user_folder(user_id)
 
-    s = requests.Session()
     scrape_profile(user_id, folder, s)
     scrape_guestbook(user_id, folder, s)
     scrape_images(user_id, folder, s)
@@ -36,5 +35,11 @@ def get_everything(user_id):
 if __name__=='__main__':
     # mange billeder 2029308
     # to siders video 3625323
-    get_everything(3625323)
+    # har panes 2509500
+    s = requests.Session()
+    
+    get_everything(2029308, s)
+    get_everything(3625323, s)
+    get_everything(3625323, s)
+    get_everything(2509500, s)
     

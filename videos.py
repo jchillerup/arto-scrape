@@ -1,14 +1,9 @@
 import sys, os, re, requests, urllib, demjson
 from lxml.html import fromstring
+from util import download_file
 
 VIDEO_OVERVIEW_URL = "http://www.arto.com/section/user/profile/gallery/?id=%d&category=-1&ContentList_ActivePage=%d"
 VIDEO_URL = ""
-
-def download_file(session, url, destination):
-    req = session.get(url)
-    fp = open(destination, 'wb')
-    fp.write(req.content)
-    fp.close()
 
     
 def dump_video(video_url, video_counter, root, session):
