@@ -35,6 +35,6 @@ def get_everything(user_id):
 
 if __name__=='__main__':
     # mange billeder 2029308
-    
-    get_everything(2029308)
+    # to siders video 3625323
+    get_everything(3625323)
     
