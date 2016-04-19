@@ -1,24 +1,10 @@
 import re, sys, os
 import requests, urllib
 from lxml.html import fromstring
-from slugify import slugify
-
+from util import make_user_folder
 
 PROFILE_URL = "http://www.arto.com/section/user/profile/?id=%d"
 AVATAR_URL = "http://artoimages.cloud2.artodata.com/data/user/profile/medium/%s/%d.jpg"
-
-def make_user_folder(profile_id, username):
-    # we arrange the users in folders of 10000
-    remainder = profile_id % 100000
-    subfolder = profile_id - remainder
-
-    sanitized_name = slugify(username)
-    
-    folder = "out/%d/%d-%s/" % (subfolder, profile_id, sanitized_name)
-
-    os.makedirs(folder, exist_ok=True)
-    
-    return folder
 
 def get_avatar(profile_id):
     last_four = str(profile_id)[-4:]
@@ -47,8 +33,6 @@ def scrape_profile(profile_id):
 
     urllib.request.urlretrieve(avatar_url, folder + "avatar.jpg")
     print (" - avatar")
-    
-    
 
 if __name__=='__main__':
     scrape_profile(5777177)
