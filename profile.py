@@ -36,7 +36,7 @@ def scrape_profile(profile_id):
 
     ## PROFILE
     print(" - profile")
-    fp = open(folder + "profile.html", 'w')
+    fp = open(folder + "profile.html", 'wb')
     fp.write(req.content)
     fp.close()
     
