@@ -4,7 +4,7 @@ import requests
 
 from profile import scrape_profile
 from guestbook import scrape_guestbook
-
+from images import scrape_images
 
 def make_user_folder(profile_id):
     # we arrange the users in folders of 10000
@@ -27,8 +27,10 @@ def get_everything(user_id):
     s = requests.Session()
     scrape_profile(user_id, folder, s)
     scrape_guestbook(user_id, folder, s)
-    
+    scrape_images(user_id, folder, s)
 
 if __name__=='__main__':
-    get_everything(5328127)
+    # mange billeder 2029308
+    
+    get_everything(2029308)
     
