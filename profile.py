@@ -52,6 +52,9 @@ def scrape_profile(profile_id, folder, session):
 
     print (" - presentation")
     get_presentation(profile_id, folder, session)
+
+    print (" - statistics")
+    download_file(session, "http://www.arto.com/section/user/statistics/?id="%profile_id, folder+"statistics.html")
     
 if __name__=='__main__':
     s = requests.Session()
