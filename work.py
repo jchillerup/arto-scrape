@@ -4,9 +4,14 @@ from user import get_everything
 
 bar = progressbar.ProgressBar(max_value=5000, redirect_stdout=True)
 
-out = open("log-"+str(os.getpid()) + ".txt", "w")
+work_filename = sys.argv[1].split("/")[-1]
+out = open("log-%s-%s.txt" % (str(os.getpid()), work_filename), "w")
 
-with open(sys.argv[1], 'r') as fp:
+
+filename = sys.argv[1]
+
+os.rename(filename, filename+".working")
+with open(filename+".working", 'r') as fp:
     s = requests.Session()
     
     for line in bar(fp):
@@ -17,4 +22,5 @@ with open(sys.argv[1], 'r') as fp:
         except:
             out.write("%d;failed\n" % aid)
 
+os.rename(filename+".working", filename+".done")
 out.close()
