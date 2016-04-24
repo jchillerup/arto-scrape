@@ -67,6 +67,9 @@ def scrape_gallery(gallery_id, user_id, root, session):
 def scrape_images(user_id, root, session):
     print(" - images")
     for gallery_id, gallery_name in get_galleries(user_id, root, session):
-
-        print("   - gallery: " + gallery_name)
+        
+        if gallery_name is not None:
+            print("   - gallery: " + gallery_name)
+        else:
+            print("   - gallery")
         scrape_gallery(gallery_id, user_id, root, session)

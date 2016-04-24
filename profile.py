@@ -26,9 +26,17 @@ def get_presentation(profile_id, folder, session):
 
     if len(panes) == 0:
         print("   - sole pane")
-        iframe = dom.xpath(".//iframe[@id='ProfileTextIFrame']")[0]
-        download_file(session, iframe.get('src'), folder+"presentation.html")
+        try:
+            iframe = dom.xpath(".//iframe[@id='ProfileTextIFrame']")[0]
+        except IndexError:
+            print("   ! no profile text available")
+            return
         
+        try:
+            download_file(session, iframe.get('src'), folder+"presentation.html")
+        except:
+            print("   ! http error while downloading presentation")
+            
 def scrape_profile(profile_id, folder, session):
     req = session.get(PROFILE_URL % profile_id)
     dom = fromstring(req.content)
