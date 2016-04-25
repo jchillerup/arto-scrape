@@ -1,4 +1,4 @@
-import os
+import os, shutil
 from slugify import slugify
 import requests
 
@@ -26,11 +26,15 @@ def get_everything(user_id, s):
     print(":: %d" % user_id)
     folder = make_user_folder(user_id)
 
-    scrape_profile(user_id, folder, s)
-    scrape_guestbook(user_id, folder, s)
-    scrape_images(user_id, folder, s)
-    scrape_videos(user_id, folder, s)
-    scrape_friends(user_id, folder, s)
+    active = scrape_profile(user_id, folder, s)
+
+    if (active):
+        scrape_guestbook(user_id, folder, s)
+        scrape_images(user_id, folder, s)
+        scrape_videos(user_id, folder, s)
+        scrape_friends(user_id, folder, s)
+    else:
+        shutil.rmtree(folder, ignore_errors=True)
 
 if __name__=='__main__':
     # mange billeder 2029308

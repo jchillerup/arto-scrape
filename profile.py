@@ -39,8 +39,13 @@ def get_presentation(profile_id, folder, session):
             
 def scrape_profile(profile_id, folder, session):
     req = session.get(PROFILE_URL % profile_id)
-    dom = fromstring(req.content)
 
+    if ("profil er deaktiveret!" in str(req.content)):
+        print(" - profile has been deactivated")
+        return False
+
+    dom = fromstring(req.content)
+    
     username = dom.findtext(".//title").replace("Arto - ", "").strip()
     
     ## PROFILE
@@ -50,13 +55,16 @@ def scrape_profile(profile_id, folder, session):
     fp.close()
     
     ## AVATAR
-    print (" - avatar")
-    avatar_url = re.findall('url\(([^)]+)\)', 
-                            dom.find(".//div[@id='photoContainerDiv']").get('style')
-                            )[0].split("?")[0]
+    try:
+        print (" - avatar")
+        avatar_url = re.findall('url\(([^)]+)\)', 
+                                dom.find(".//div[@id='photoContainerDiv']").get('style')
+        )[0].split("?")[0]
 
-    urllib.request.urlretrieve(avatar_url, folder + "avatar.jpg")
+        urllib.request.urlretrieve(avatar_url, folder + "avatar.jpg")
 
+    except:
+        print (" - error downloading avatar")
 
     print (" - presentation")
     get_presentation(profile_id, folder, session)
